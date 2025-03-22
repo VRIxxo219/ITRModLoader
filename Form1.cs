@@ -8,8 +8,10 @@ using System.Text;
 
 namespace ITRModLoader
 {
+
     public partial class Form1 : MaterialForm
     {
+
         private bool dragging = false;
         private Point dragCursorPoint;
         private Point dragFormPoint;
@@ -18,6 +20,7 @@ namespace ITRModLoader
         public Form1()
         {
             InitializeComponent();
+
             materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.EnforceBackcolorOnAllComponents = true;
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
@@ -67,42 +70,90 @@ namespace ITRModLoader
                     m.Result = (IntPtr)HTBOTTOM;
             }
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
+            LoadMods();
+        }
 
-            //Assign Mod Paths TODO: Support more than PAK mods
+        private void LoadMods()
+        {
+            // Define the list of excluded core game files
+            List<string> excludedFiles = new List<string>
+            {
+                "pakchunk0optional-WindowsNoEditor.pak",
+                "pakchunk0-WindowsNoEditor.pak",
+                "pakchunk1optional-WindowsNoEditor.pak",
+                "pakchunk1-WindowsNoEditor.pak"
+            };
             string mainGamePath = Properties.Settings.Default.GameFolderPath;
             string relativeModsPath = @"IntoTheRadius\Content\Paks";
             string pakModsFolderPath = Path.Combine(mainGamePath, relativeModsPath);
+            string deactivatedModsPath = Path.Combine(Path.GetDirectoryName(pakModsFolderPath), "ITR_ModStage");
+
+            modsCheckedListBox.Items.Clear();
+
+            // Load active mods
             if (Directory.Exists(pakModsFolderPath))
             {
-                MessageBox.Show("Mods Folder Found! You Did It!");
-                modsCheckedListBox.Items.Clear(); //Remove Debug Text
-                string[] enabledMods = Directory.GetFiles(pakModsFolderPath, "*.pak");
-                foreach (string mod in enabledMods)
+                string[] activeMods = Directory.GetFiles(pakModsFolderPath, "*.pak");
+                foreach (string mod in activeMods)
                 {
-                    // Skip core files containing "pakchunk"
-                    if (mod.ToLower().Contains("pakchunk"))
-                    {
-                        continue;
-                    }
                     string modName = Path.GetFileName(mod);
-                    modsCheckedListBox.Items.Add(modName, true);  // Checked = Enabled
+                    if (!excludedFiles.Contains(modName, StringComparer.OrdinalIgnoreCase))
+                    {
+                        modsCheckedListBox.Items.Add(modName, true);  // Checked = Enabled
+                    }
                 }
             }
-            else
-            {
-                MessageBox.Show("Mods folder not found! Big Sad");
-            }
 
+            // Load deactivated mods
+            if (Directory.Exists(deactivatedModsPath))
+            {
+                string[] deactivatedMods = Directory.GetFiles(deactivatedModsPath, "*.pak");
+                foreach (string mod in deactivatedMods)
+                {
+                    string modName = Path.GetFileName(mod);
+                    string destination = Path.Combine(pakModsFolderPath, modName);
+
+                    // Move excluded files back to active folder
+                    if (excludedFiles.Contains(modName, StringComparer.OrdinalIgnoreCase))
+                    {
+                        if (!File.Exists(destination))
+                        {
+                            try
+                            {
+                                File.Move(mod, destination);
+                            }
+                            catch
+                            {
+                                // Handle error if needed
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                File.Delete(mod);
+                            }
+                            catch
+                            {
+                                // Handle error if needed
+                            }
+                        }
+                    }
+                    else
+                    {
+                        modsCheckedListBox.Items.Add(modName, false);  // Unchecked = Disabled
+                    }
+                }
+            }
         }
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             // TODO: Use ModConfig.JSON to return Original Mod Name
-            fileNameLabel.Text = $"Mod File Name: {modsCheckedListBox.Text}"; 
+            fileNameLabel.Text = $"Mod File Name: {modsCheckedListBox.Text}";
         }
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -158,11 +209,67 @@ namespace ITRModLoader
 
         private void materialButton1_Click_1(object sender, EventArgs e)
         {
-            //TODO:Process Batch Operations
-            DialogResult result = MessageBox.Show("Enter The Zone?", "Ready Explorer?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
+            // Get the main ITR folder path from your settings
+            string mainITRFolder = Properties.Settings.Default.GameFolderPath;
+
+            // Construct the path to the Paks folder with the extra "IntoTheRadius" folder
+            string pakModsFolderPath = Path.Combine(mainITRFolder, "IntoTheRadius", "Content", "Paks");
+            string deactivatedModsPath = Path.Combine(Path.GetDirectoryName(pakModsFolderPath), "ITR_ModStage");
+
+            // Check if the Paks folder exists
+            if (!Directory.Exists(pakModsFolderPath))
             {
-                Process.Start(Path.Combine(Properties.Settings.Default.GameFolderPath, @"IntoTheRadius.exe"));
+                MessageBox.Show($"Paks folder not found at: {pakModsFolderPath}");
+                return;
+            }
+
+            // Get the list of selected mods
+            List<string> selectedMods = new List<string>();
+            foreach (var item in modsCheckedListBox.CheckedItems)
+            {
+                selectedMods.Add(item.ToString());
+            }
+
+            Console.WriteLine($"Selected mods: {string.Join(", ", selectedMods)}");
+
+            // Create an instance of ModFileMover with the main ITR folder path
+            ModFileMover modMover = new ModFileMover(mainITRFolder);
+
+            // Debug: Show all mods before moving
+            var allMods = Directory.GetFiles(pakModsFolderPath, "*.pak");
+            Console.WriteLine($"Total mods found in active folder: {allMods.Length}");
+            foreach (var mod in allMods)
+            {
+                Console.WriteLine($"Active mod: {Path.GetFileName(mod)}");
+            }
+
+            var allDeactivatedMods = Directory.GetFiles(deactivatedModsPath, "*.pak");
+            Console.WriteLine($"Total mods found in deactivated folder: {allDeactivatedMods.Length}");
+            foreach (var mod in allDeactivatedMods)
+            {
+                Console.WriteLine($"Deactivated mod: {Path.GetFileName(mod)}");
+            }
+
+            // Move unselected mods
+            modMover.MoveUnselectedMods(selectedMods.ToArray());
+
+            // Debug: Show all mods after moving
+            var remainingMods = Directory.GetFiles(pakModsFolderPath, "*.pak");
+            Console.WriteLine($"Total mods remaining in active folder: {remainingMods.Length}");
+            foreach (var mod in remainingMods)
+            {
+                Console.WriteLine($"Remaining active mod: {Path.GetFileName(mod)}");
+            }
+
+            // Launch the game
+            string gameExePath = Path.Combine(mainITRFolder, "IntoTheRadius", "IntoTheRadius.exe");
+            if (File.Exists(gameExePath))
+            {
+                Process.Start(gameExePath);
+            }
+            else
+            {
+                MessageBox.Show($"Game executable not found at: {gameExePath}");
             }
         }
 
@@ -177,28 +284,13 @@ namespace ITRModLoader
             settingsForm.ShowDialog();  // Open as modal dialog
         }
 
-        private void materialCheckedListBox1_Paint(object sender, PaintEventArgs e)
-        {
-        }
-        private void materialCheckedListBox1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void materialCheckedListBox1_MouseHover(object sender, EventArgs e)
-        {
-        }
-
-        private void materialCheckedListBox1_TabIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void materialButton2_Click_1(object sender, EventArgs e)
         {
 
         }
 
-        private void objectListView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void contextMenuStrip2_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
 
         }

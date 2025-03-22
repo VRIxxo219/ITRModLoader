@@ -48,6 +48,7 @@
             NavBar = new Panel();
             materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             materialButton2 = new MaterialSkin.Controls.MaterialButton();
+            contextMenuStrip2 = new ContextMenuStrip(components);
             contextMenuStrip1.SuspendLayout();
             panel1.SuspendLayout();
             windowBorderPanel.SuspendLayout();
@@ -304,6 +305,12 @@
             materialButton2.UseVisualStyleBackColor = true;
             materialButton2.Click += materialButton2_Click_1;
             // 
+            // contextMenuStrip2
+            // 
+            contextMenuStrip2.Name = "contextMenuStrip2";
+            contextMenuStrip2.Size = new Size(61, 4);
+            contextMenuStrip2.Opening += contextMenuStrip2_Opening;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -356,5 +363,6 @@
         private MaterialSkin.Controls.MaterialLabel materialLabel4;
         private MaterialSkin.Controls.MaterialLabel fileNameLabel;
         private MaterialSkin.Controls.MaterialButton materialButton2;
+        private ContextMenuStrip contextMenuStrip2;
     }
 }
