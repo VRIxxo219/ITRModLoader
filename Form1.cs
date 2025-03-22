@@ -1,18 +1,29 @@
 using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
+using System;
+using System.Text;
 
 namespace ITRModLoader
 {
-    public partial class Form1 : Form
+    public partial class Form1 : MaterialForm
     {
         private bool dragging = false;
         private Point dragCursorPoint;
         private Point dragFormPoint;
+        private MaterialSkinManager materialSkinManager;
 
         public Form1()
         {
             InitializeComponent();
+            materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.EnforceBackcolorOnAllComponents = true;
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Red600, Primary.Blue800, Primary.Red100, Accent.DeepOrange700, TextShade.WHITE);
+
+            materialSkinManager.AddFormToManage(this);
         }
 
         // Constants for window resizing
@@ -59,6 +70,7 @@ namespace ITRModLoader
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             //Assign Mod Paths TODO: Support more than PAK mods
             string mainGamePath = Properties.Settings.Default.GameFolderPath;
             string relativeModsPath = @"IntoTheRadius\Content\Paks";
@@ -76,7 +88,7 @@ namespace ITRModLoader
                         continue;
                     }
                     string modName = Path.GetFileName(mod);
-                    modsCheckedListBox.Items.Add(modName, true);  // Checked = Enabled
+                    materialCheckedListBox1.Items.Add(modName, true);  // Checked = Enabled
                 }
             }
             else
@@ -97,12 +109,6 @@ namespace ITRModLoader
             {
                 Process.Start(Path.Combine(Properties.Settings.Default.GameFolderPath, @"IntoTheRadius.exe"));
             }
-        }
-
-        private void settingsButton_Click(object sender, EventArgs e)
-        {
-            SettingsForm settingsForm = new SettingsForm(this);
-            settingsForm.ShowDialog();  // Open as modal dialog
         }
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -176,32 +182,34 @@ namespace ITRModLoader
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void materialButton1_Click_1(object sender, EventArgs e)
         {
 
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void treeListView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void materialButton2_Click(object sender, EventArgs e)
         {
-
+            SettingsForm settingsForm = new SettingsForm(this);
+            settingsForm.ShowDialog();  // Open as modal dialog
         }
 
-        private void objectListView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void materialCheckedListBox1_Paint(object sender, PaintEventArgs e)
         {
-
+        }
+        private void materialCheckedListBox1_Click(object sender, EventArgs e)
+        {
         }
 
-        private void materialProgressBar1_Click(object sender, EventArgs e)
+        private void materialCheckedListBox1_MouseHover(object sender, EventArgs e)
         {
-
         }
 
-        private void materialButton1_Click(object sender, EventArgs e)
+        private void materialCheckedListBox1_TabIndexChanged(object sender, EventArgs e)
         {
 
         }

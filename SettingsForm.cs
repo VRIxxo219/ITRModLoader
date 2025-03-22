@@ -8,12 +8,16 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace ITRModLoader
 {
-    public partial class SettingsForm : Form
+    public partial class SettingsForm : MaterialForm
     {
+        private MaterialSkinManager materialSkinManager;
+
         public SettingsForm(Form parent)
         {
             InitializeComponent();
@@ -30,6 +34,12 @@ namespace ITRModLoader
             //Load Data from Settings
             settingsGamePathTextBox.Text = Properties.Settings.Default.GameFolderPath;
             settingsAppPathTextBox.Text = Properties.Settings.Default.AppFolderPath;
+
+            materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.EnforceBackcolorOnAllComponents = false;
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+
+            materialSkinManager.AddFormToManage(this);
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
