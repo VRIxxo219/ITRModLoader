@@ -42,12 +42,12 @@
             applicationCloseButton = new Button();
             materialButton3 = new MaterialSkin.Controls.MaterialButton();
             materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            materialCheckedListBox1 = new MaterialSkin.Controls.MaterialCheckedListBox();
             pictureBox1 = new PictureBox();
             settingsMaterialButton = new MaterialSkin.Controls.MaterialButton();
             materialButton1 = new MaterialSkin.Controls.MaterialButton();
             NavBar = new Panel();
             materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            materialButton2 = new MaterialSkin.Controls.MaterialButton();
             contextMenuStrip1.SuspendLayout();
             panel1.SuspendLayout();
             windowBorderPanel.SuspendLayout();
@@ -59,7 +59,7 @@
             // 
             alphaBuildLabel.AutoSize = true;
             alphaBuildLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            alphaBuildLabel.Location = new Point(608, 108);
+            alphaBuildLabel.Location = new Point(604, 108);
             alphaBuildLabel.Name = "alphaBuildLabel";
             alphaBuildLabel.Size = new Size(126, 15);
             alphaBuildLabel.TabIndex = 4;
@@ -163,6 +163,7 @@
             applicationCloseButton.BackColor = Color.FromArgb(64, 0, 0);
             applicationCloseButton.Dock = DockStyle.Right;
             applicationCloseButton.FlatAppearance.BorderSize = 0;
+            applicationCloseButton.FlatAppearance.MouseDownBackColor = Color.Red;
             applicationCloseButton.FlatStyle = FlatStyle.Flat;
             applicationCloseButton.ForeColor = Color.White;
             applicationCloseButton.Location = new Point(1334, 0);
@@ -205,23 +206,6 @@
             materialLabel1.Size = new Size(63, 19);
             materialLabel1.TabIndex = 10;
             materialLabel1.Text = "All Mods";
-            // 
-            // materialCheckedListBox1
-            // 
-            materialCheckedListBox1.AutoScroll = true;
-            materialCheckedListBox1.BackColor = Color.Black;
-            materialCheckedListBox1.Depth = 0;
-            materialCheckedListBox1.Location = new Point(228, 139);
-            materialCheckedListBox1.MouseState = MaterialSkin.MouseState.HOVER;
-            materialCheckedListBox1.Name = "materialCheckedListBox1";
-            materialCheckedListBox1.Size = new Size(951, 444);
-            materialCheckedListBox1.Striped = false;
-            materialCheckedListBox1.StripeDarkColor = Color.Empty;
-            materialCheckedListBox1.TabIndex = 11;
-            materialCheckedListBox1.TabIndexChanged += materialCheckedListBox1_TabIndexChanged;
-            materialCheckedListBox1.Click += materialCheckedListBox1_Click;
-            materialCheckedListBox1.Paint += materialCheckedListBox1_Paint;
-            materialCheckedListBox1.MouseHover += materialCheckedListBox1_MouseHover;
             // 
             // pictureBox1
             // 
@@ -300,6 +284,26 @@
             materialLabel2.TabIndex = 10;
             materialLabel2.Text = "ITR Mod Launcher";
             // 
+            // materialButton2
+            // 
+            materialButton2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButton2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButton2.Depth = 0;
+            materialButton2.HighEmphasis = true;
+            materialButton2.Icon = null;
+            materialButton2.Location = new Point(76, 187);
+            materialButton2.Margin = new Padding(4, 6, 4, 6);
+            materialButton2.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButton2.Name = "materialButton2";
+            materialButton2.NoAccentTextColor = Color.Empty;
+            materialButton2.Size = new Size(88, 36);
+            materialButton2.TabIndex = 11;
+            materialButton2.Text = "Profiles";
+            materialButton2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButton2.UseAccentColor = false;
+            materialButton2.UseVisualStyleBackColor = true;
+            materialButton2.Click += materialButton2_Click_1;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -307,7 +311,7 @@
             BackColor = Color.Black;
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(1374, 822);
-            Controls.Add(materialCheckedListBox1);
+            Controls.Add(materialButton2);
             Controls.Add(materialLabel1);
             Controls.Add(materialButton3);
             Controls.Add(windowBorderPanel);
@@ -347,10 +351,10 @@
         private MaterialSkin.Controls.MaterialButton settingsMaterialButton;
         private MaterialSkin.Controls.MaterialButton materialButton3;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
-        private MaterialSkin.Controls.MaterialCheckedListBox materialCheckedListBox1;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private MaterialSkin.Controls.MaterialLabel materialLabel5;
         private MaterialSkin.Controls.MaterialLabel materialLabel4;
         private MaterialSkin.Controls.MaterialLabel fileNameLabel;
+        private MaterialSkin.Controls.MaterialButton materialButton2;
     }
 }

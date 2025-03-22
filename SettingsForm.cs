@@ -16,7 +16,7 @@ namespace ITRModLoader
 {
     public partial class SettingsForm : MaterialForm
     {
-        private MaterialSkinManager materialSkinManager;
+        private MaterialSkinManager materialSkinManager2;
 
         public SettingsForm(Form parent)
         {
@@ -35,19 +35,13 @@ namespace ITRModLoader
             settingsGamePathTextBox.Text = Properties.Settings.Default.GameFolderPath;
             settingsAppPathTextBox.Text = Properties.Settings.Default.AppFolderPath;
 
-            materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.EnforceBackcolorOnAllComponents = false;
-            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager2 = MaterialSkinManager.Instance;
+            materialSkinManager2.EnforceBackcolorOnAllComponents = false;
 
-            materialSkinManager.AddFormToManage(this);
+            materialSkinManager2.AddFormToManage(this);
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void gamePathTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -57,7 +51,16 @@ namespace ITRModLoader
 
         }
 
-        private void gamePathFindButton_Click(object sender, EventArgs e)
+        private void gamePathLabel_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void settingsGamePathTextBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialButton1_Click(object sender, EventArgs e)
         {
             //TODO: Create Folder Handler
             FolderBrowserDialog fbd = new FolderBrowserDialog();
@@ -72,11 +75,7 @@ namespace ITRModLoader
             }
         }
 
-        private void gamePathLabel_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void appPathFindButton_Click(object sender, EventArgs e)
+        private void appPathFindButton_Click_1(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.InitialDirectory = "c:\\";
@@ -88,7 +87,7 @@ namespace ITRModLoader
             }
         }
 
-        private void saveDataButton_Click(object sender, EventArgs e)
+        private void materialButton3_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Are you sure you want to continue?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -107,9 +106,9 @@ namespace ITRModLoader
             }
         }
 
-        private void appPathTextBox_TextChanged(object sender, EventArgs e)
+        private void materialButton4_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }

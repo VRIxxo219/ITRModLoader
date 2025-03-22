@@ -21,7 +21,7 @@ namespace ITRModLoader
             materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.EnforceBackcolorOnAllComponents = true;
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.Red600, Primary.Blue800, Primary.Red100, Accent.DeepOrange700, TextShade.WHITE);
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Red600, Primary.Red900, Primary.Red100, Accent.DeepOrange700, TextShade.WHITE);
 
             materialSkinManager.AddFormToManage(this);
         }
@@ -88,38 +88,21 @@ namespace ITRModLoader
                         continue;
                     }
                     string modName = Path.GetFileName(mod);
-                    materialCheckedListBox1.Items.Add(modName, true);  // Checked = Enabled
+                    modsCheckedListBox.Items.Add(modName, true);  // Checked = Enabled
                 }
             }
             else
             {
                 MessageBox.Show("Mods folder not found! Big Sad");
             }
-        }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void playButton_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Enter The Zone?", "Ready Explorer?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                Process.Start(Path.Combine(Properties.Settings.Default.GameFolderPath, @"IntoTheRadius.exe"));
-            }
         }
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             // TODO: Use ModConfig.JSON to return Original Mod Name
-            fileNameLabel.Text = $"Mod File Name: {modsCheckedListBox.Text}";
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            fileNameLabel.Text = $"Mod File Name: {modsCheckedListBox.Text}"; 
         }
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -132,10 +115,6 @@ namespace ITRModLoader
 
         }
 
-        private void Form1_Click(object sender, EventArgs e)
-        {
-        }
-
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
         }
@@ -144,11 +123,6 @@ namespace ITRModLoader
         {
             //Draw ITR Native Colors //TODO: Create Appliation Wide color variables for future theme engine
             ControlPaint.DrawBorder(e.Graphics, panel1.ClientRectangle, Color.FromArgb(227, 30, 40), ButtonBorderStyle.Solid);
-        }
-
-        private void fileNameLabel_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -184,7 +158,12 @@ namespace ITRModLoader
 
         private void materialButton1_Click_1(object sender, EventArgs e)
         {
-
+            //TODO:Process Batch Operations
+            DialogResult result = MessageBox.Show("Enter The Zone?", "Ready Explorer?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Process.Start(Path.Combine(Properties.Settings.Default.GameFolderPath, @"IntoTheRadius.exe"));
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -210,6 +189,16 @@ namespace ITRModLoader
         }
 
         private void materialCheckedListBox1_TabIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialButton2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void objectListView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

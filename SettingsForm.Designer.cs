@@ -30,8 +30,8 @@
         {
             gamePathLabel = new Label();
             label2 = new Label();
-            materialButton1 = new MaterialSkin.Controls.MaterialButton();
-            materialButton2 = new MaterialSkin.Controls.MaterialButton();
+            materialFindButton = new MaterialSkin.Controls.MaterialButton();
+            appPathFindButton = new MaterialSkin.Controls.MaterialButton();
             settingsGamePathTextBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
             settingsAppPathTextBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
             materialButton3 = new MaterialSkin.Controls.MaterialButton();
@@ -60,43 +60,45 @@
             label2.Text = "Application Data";
             label2.Click += label2_Click;
             // 
-            // materialButton1
+            // materialFindButton
             // 
-            materialButton1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            materialButton1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            materialButton1.Depth = 0;
-            materialButton1.HighEmphasis = true;
-            materialButton1.Icon = null;
-            materialButton1.Location = new Point(12, 151);
-            materialButton1.Margin = new Padding(4, 6, 4, 6);
-            materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
-            materialButton1.Name = "materialButton1";
-            materialButton1.NoAccentTextColor = Color.Empty;
-            materialButton1.Size = new Size(64, 36);
-            materialButton1.TabIndex = 10;
-            materialButton1.Text = "Find";
-            materialButton1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            materialButton1.UseAccentColor = false;
-            materialButton1.UseVisualStyleBackColor = true;
+            materialFindButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialFindButton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialFindButton.Depth = 0;
+            materialFindButton.HighEmphasis = true;
+            materialFindButton.Icon = null;
+            materialFindButton.Location = new Point(12, 151);
+            materialFindButton.Margin = new Padding(4, 6, 4, 6);
+            materialFindButton.MouseState = MaterialSkin.MouseState.HOVER;
+            materialFindButton.Name = "materialFindButton";
+            materialFindButton.NoAccentTextColor = Color.Empty;
+            materialFindButton.Size = new Size(64, 36);
+            materialFindButton.TabIndex = 10;
+            materialFindButton.Text = "Find";
+            materialFindButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialFindButton.UseAccentColor = false;
+            materialFindButton.UseVisualStyleBackColor = true;
+            materialFindButton.Click += materialButton1_Click;
             // 
-            // materialButton2
+            // appPathFindButton
             // 
-            materialButton2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            materialButton2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            materialButton2.Depth = 0;
-            materialButton2.HighEmphasis = true;
-            materialButton2.Icon = null;
-            materialButton2.Location = new Point(12, 289);
-            materialButton2.Margin = new Padding(4, 6, 4, 6);
-            materialButton2.MouseState = MaterialSkin.MouseState.HOVER;
-            materialButton2.Name = "materialButton2";
-            materialButton2.NoAccentTextColor = Color.Empty;
-            materialButton2.Size = new Size(64, 36);
-            materialButton2.TabIndex = 11;
-            materialButton2.Text = "Find";
-            materialButton2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            materialButton2.UseAccentColor = false;
-            materialButton2.UseVisualStyleBackColor = true;
+            appPathFindButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            appPathFindButton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            appPathFindButton.Depth = 0;
+            appPathFindButton.HighEmphasis = true;
+            appPathFindButton.Icon = null;
+            appPathFindButton.Location = new Point(12, 289);
+            appPathFindButton.Margin = new Padding(4, 6, 4, 6);
+            appPathFindButton.MouseState = MaterialSkin.MouseState.HOVER;
+            appPathFindButton.Name = "appPathFindButton";
+            appPathFindButton.NoAccentTextColor = Color.Empty;
+            appPathFindButton.Size = new Size(64, 36);
+            appPathFindButton.TabIndex = 11;
+            appPathFindButton.Text = "Find";
+            appPathFindButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            appPathFindButton.UseAccentColor = false;
+            appPathFindButton.UseVisualStyleBackColor = true;
+            appPathFindButton.Click += appPathFindButton_Click_1;
             // 
             // settingsGamePathTextBox
             // 
@@ -139,6 +141,7 @@
             settingsGamePathTextBox.TrailingIcon = null;
             settingsGamePathTextBox.UseSystemPasswordChar = false;
             settingsGamePathTextBox.ValidatingType = null;
+            settingsGamePathTextBox.Click += settingsGamePathTextBox_Click;
             // 
             // settingsAppPathTextBox
             // 
@@ -200,6 +203,7 @@
             materialButton3.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             materialButton3.UseAccentColor = false;
             materialButton3.UseVisualStyleBackColor = true;
+            materialButton3.Click += materialButton3_Click;
             // 
             // materialButton4
             // 
@@ -219,6 +223,7 @@
             materialButton4.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             materialButton4.UseAccentColor = false;
             materialButton4.UseVisualStyleBackColor = true;
+            materialButton4.Click += materialButton4_Click;
             // 
             // SettingsForm
             // 
@@ -230,8 +235,8 @@
             Controls.Add(materialButton3);
             Controls.Add(settingsAppPathTextBox);
             Controls.Add(settingsGamePathTextBox);
-            Controls.Add(materialButton2);
-            Controls.Add(materialButton1);
+            Controls.Add(appPathFindButton);
+            Controls.Add(materialFindButton);
             Controls.Add(label2);
             Controls.Add(gamePathLabel);
             Name = "SettingsForm";
@@ -244,8 +249,8 @@
         #endregion
         private Label gamePathLabel;
         private Label label2;
-        private MaterialSkin.Controls.MaterialButton materialButton1;
-        private MaterialSkin.Controls.MaterialButton materialButton2;
+        private MaterialSkin.Controls.MaterialButton materialFindButton;
+        private MaterialSkin.Controls.MaterialButton appPathFindButton;
         private MaterialSkin.Controls.MaterialMaskedTextBox settingsGamePathTextBox;
         private MaterialSkin.Controls.MaterialMaskedTextBox settingsAppPathTextBox;
         private MaterialSkin.Controls.MaterialButton materialButton3;
