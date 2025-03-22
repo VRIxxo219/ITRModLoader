@@ -1,9 +1,9 @@
 # ITRModLoader
 Very Early ITR1 Mod Launcher (For Now)
 
-*Only Compatible with PAK mods
-*No Load Priority - Mods must be compatiable
-*Under Settings set the "Game Path" To your ITR folder with the IntoTheRadius.exe
+- Only Compatible with PAK mods
+- No Load Priority - Mods must be compatiable
+- Under Settings set the "Game Path" To your ITR folder with the IntoTheRadius.exe
 
 NOTE: This Project is still in Alpha and I **Strongly Recommend** you backup your mods folder seprately just in case.
 
