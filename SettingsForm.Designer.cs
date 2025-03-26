@@ -36,6 +36,7 @@
             settingsAppPathTextBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
             materialButton3 = new MaterialSkin.Controls.MaterialButton();
             materialButton4 = new MaterialSkin.Controls.MaterialButton();
+            materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             SuspendLayout();
             // 
             // gamePathLabel
@@ -85,6 +86,7 @@
             appPathFindButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             appPathFindButton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             appPathFindButton.Depth = 0;
+            appPathFindButton.Enabled = false;
             appPathFindButton.HighEmphasis = true;
             appPathFindButton.Icon = null;
             appPathFindButton.Location = new Point(12, 289);
@@ -152,6 +154,7 @@
             settingsAppPathTextBox.BeepOnError = false;
             settingsAppPathTextBox.CutCopyMaskFormat = MaskFormat.IncludeLiterals;
             settingsAppPathTextBox.Depth = 0;
+            settingsAppPathTextBox.Enabled = false;
             settingsAppPathTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             settingsAppPathTextBox.HidePromptOnLeave = false;
             settingsAppPathTextBox.HideSelection = true;
@@ -225,12 +228,25 @@
             materialButton4.UseVisualStyleBackColor = true;
             materialButton4.Click += materialButton4_Click;
             // 
+            // materialLabel1
+            // 
+            materialLabel1.AutoSize = true;
+            materialLabel1.Depth = 0;
+            materialLabel1.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabel1.Location = new Point(158, 210);
+            materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel1.Name = "materialLabel1";
+            materialLabel1.Size = new Size(65, 19);
+            materialLabel1.TabIndex = 16;
+            materialLabel1.Text = "Not Used";
+            // 
             // SettingsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(224, 224, 224);
             ClientSize = new Size(741, 397);
+            Controls.Add(materialLabel1);
             Controls.Add(materialButton4);
             Controls.Add(materialButton3);
             Controls.Add(settingsAppPathTextBox);
@@ -255,5 +271,6 @@
         private MaterialSkin.Controls.MaterialMaskedTextBox settingsAppPathTextBox;
         private MaterialSkin.Controls.MaterialButton materialButton3;
         private MaterialSkin.Controls.MaterialButton materialButton4;
+        private MaterialSkin.Controls.MaterialLabel materialLabel1;
     }
 }

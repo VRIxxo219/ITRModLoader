@@ -5,17 +5,18 @@ using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
 using System.Text;
+using ITRModLoader.Logic;
+using System.IO;
 
 namespace ITRModLoader
 {
-
     public partial class Form1 : MaterialForm
     {
-
         private bool dragging = false;
         private Point dragCursorPoint;
         private Point dragFormPoint;
         private MaterialSkinManager materialSkinManager;
+        private ModManager _modManager;
 
         public Form1()
         {
@@ -27,6 +28,8 @@ namespace ITRModLoader
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Red600, Primary.Red900, Primary.Red100, Accent.DeepOrange700, TextShade.WHITE);
 
             materialSkinManager.AddFormToManage(this);
+            string gameFolderPath = Properties.Settings.Default.GameFolderPath;
+            _modManager = new ModManager(gameFolderPath);
         }
 
         // Constants for window resizing
@@ -42,15 +45,12 @@ namespace ITRModLoader
 
         protected override void WndProc(ref Message m)
         {
-            //Overwrite Porcess to reate Cusotm Resizable Borders
             base.WndProc(ref m);
 
-            // Allow resizing by dragging edges
             if (m.Msg == WM_NCHITTEST)
             {
                 var cursorPosition = PointToClient(Cursor.Position);
-
-                int gripSize = 10; // Thickness of the resize border
+                int gripSize = 10;
 
                 if (cursorPosition.X <= gripSize && cursorPosition.Y <= gripSize)
                     m.Result = (IntPtr)HTTOPLEFT;
@@ -70,14 +70,14 @@ namespace ITRModLoader
                     m.Result = (IntPtr)HTBOTTOM;
             }
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadMods();
         }
 
-        private void LoadMods()
+        public void LoadMods()
         {
-            // Define the list of excluded core game files
             List<string> excludedFiles = new List<string>
             {
                 "pakchunk0optional-WindowsNoEditor.pak",
@@ -86,13 +86,11 @@ namespace ITRModLoader
                 "pakchunk1-WindowsNoEditor.pak"
             };
             string mainGamePath = Properties.Settings.Default.GameFolderPath;
-            string relativeModsPath = @"IntoTheRadius\Content\Paks";
-            string pakModsFolderPath = Path.Combine(mainGamePath, relativeModsPath);
+            string pakModsFolderPath = Path.Combine(mainGamePath, "IntoTheRadius", "Content", "Paks");
             string deactivatedModsPath = Path.Combine(Path.GetDirectoryName(pakModsFolderPath), "ITR_ModStage");
 
             modsCheckedListBox.Items.Clear();
 
-            // Load active mods
             if (Directory.Exists(pakModsFolderPath))
             {
                 string[] activeMods = Directory.GetFiles(pakModsFolderPath, "*.pak");
@@ -101,12 +99,11 @@ namespace ITRModLoader
                     string modName = Path.GetFileName(mod);
                     if (!excludedFiles.Contains(modName, StringComparer.OrdinalIgnoreCase))
                     {
-                        modsCheckedListBox.Items.Add(modName, true);  // Checked = Enabled
+                        modsCheckedListBox.Items.Add(modName, true);
                     }
                 }
             }
 
-            // Load deactivated mods
             if (Directory.Exists(deactivatedModsPath))
             {
                 string[] deactivatedMods = Directory.GetFiles(deactivatedModsPath, "*.pak");
@@ -115,7 +112,6 @@ namespace ITRModLoader
                     string modName = Path.GetFileName(mod);
                     string destination = Path.Combine(pakModsFolderPath, modName);
 
-                    // Move excluded files back to active folder
                     if (excludedFiles.Contains(modName, StringComparer.OrdinalIgnoreCase))
                     {
                         if (!File.Exists(destination))
@@ -126,7 +122,6 @@ namespace ITRModLoader
                             }
                             catch
                             {
-                                // Handle error if needed
                             }
                         }
                         else
@@ -137,13 +132,12 @@ namespace ITRModLoader
                             }
                             catch
                             {
-                                // Handle error if needed
                             }
                         }
                     }
                     else
                     {
-                        modsCheckedListBox.Items.Add(modName, false);  // Unchecked = Disabled
+                        modsCheckedListBox.Items.Add(modName, false);
                     }
                 }
             }
@@ -151,19 +145,18 @@ namespace ITRModLoader
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            // TODO: Use ModConfig.JSON to return Original Mod Name
-            fileNameLabel.Text = $"Mod File Name: {modsCheckedListBox.Text}";
+            if (modsCheckedListBox.SelectedItem != null)
+            {
+                fileNameLabel.Text = $"Mod File Name: {modsCheckedListBox.SelectedItem}";
+            }
         }
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
         }
 
         private void renameModsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
@@ -172,12 +165,13 @@ namespace ITRModLoader
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            //Draw ITR Native Colors //TODO: Create Appliation Wide color variables for future theme engine
             ControlPaint.DrawBorder(e.Graphics, panel1.ClientRectangle, Color.FromArgb(227, 30, 40), ButtonBorderStyle.Solid);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            var selectedMods = modsCheckedListBox.CheckedItems.Cast<string>().ToList();
+            _modManager.MoveUnselectedMods(selectedMods.ToArray());
             Application.Exit();
         }
 
@@ -204,65 +198,24 @@ namespace ITRModLoader
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
-        private void materialButton1_Click_1(object sender, EventArgs e)
+        private void materialButton1_Click1(object sender, EventArgs e)
         {
-            // Get the main ITR folder path from your settings
-            string mainITRFolder = Properties.Settings.Default.GameFolderPath;
+            string gameFolderPath = Properties.Settings.Default.GameFolderPath;
+            string pakModsFolderPath = PathManager.GetPaksFolderPath(gameFolderPath);
+            string deactivatedModsPath = PathManager.GetDeactivatedModsPath(gameFolderPath);
 
-            // Construct the path to the Paks folder with the extra "IntoTheRadius" folder
-            string pakModsFolderPath = Path.Combine(mainITRFolder, "IntoTheRadius", "Content", "Paks");
-            string deactivatedModsPath = Path.Combine(Path.GetDirectoryName(pakModsFolderPath), "ITR_ModStage");
-
-            // Check if the Paks folder exists
             if (!Directory.Exists(pakModsFolderPath))
             {
                 MessageBox.Show($"Paks folder not found at: {pakModsFolderPath}");
                 return;
             }
 
-            // Get the list of selected mods
-            List<string> selectedMods = new List<string>();
-            foreach (var item in modsCheckedListBox.CheckedItems)
-            {
-                selectedMods.Add(item.ToString());
-            }
+            var selectedMods = modsCheckedListBox.CheckedItems.Cast<string>().ToList();
+            _modManager.MoveUnselectedMods(selectedMods.ToArray());
 
-            Console.WriteLine($"Selected mods: {string.Join(", ", selectedMods)}");
-
-            // Create an instance of ModFileMover with the main ITR folder path
-            ModFileMover modMover = new ModFileMover(mainITRFolder);
-
-            // Debug: Show all mods before moving
-            var allMods = Directory.GetFiles(pakModsFolderPath, "*.pak");
-            Console.WriteLine($"Total mods found in active folder: {allMods.Length}");
-            foreach (var mod in allMods)
-            {
-                Console.WriteLine($"Active mod: {Path.GetFileName(mod)}");
-            }
-
-            var allDeactivatedMods = Directory.GetFiles(deactivatedModsPath, "*.pak");
-            Console.WriteLine($"Total mods found in deactivated folder: {allDeactivatedMods.Length}");
-            foreach (var mod in allDeactivatedMods)
-            {
-                Console.WriteLine($"Deactivated mod: {Path.GetFileName(mod)}");
-            }
-
-            // Move unselected mods
-            modMover.MoveUnselectedMods(selectedMods.ToArray());
-
-            // Debug: Show all mods after moving
-            var remainingMods = Directory.GetFiles(pakModsFolderPath, "*.pak");
-            Console.WriteLine($"Total mods remaining in active folder: {remainingMods.Length}");
-            foreach (var mod in remainingMods)
-            {
-                Console.WriteLine($"Remaining active mod: {Path.GetFileName(mod)}");
-            }
-
-            // Launch the game
-            string gameExePath = Path.Combine(mainITRFolder, "IntoTheRadius", "IntoTheRadius.exe");
+            string gameExePath = PathManager.GetGameExePath(gameFolderPath);
             if (File.Exists(gameExePath))
             {
                 Process.Start(gameExePath);
@@ -275,24 +228,26 @@ namespace ITRModLoader
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void materialButton2_Click(object sender, EventArgs e)
         {
-            SettingsForm settingsForm = new SettingsForm(this);
-            settingsForm.ShowDialog();  // Open as modal dialog
+            using (var settingsForm = new SettingsForm(this))
+            {
+                settingsForm.ShowDialog();
+            }
         }
-
 
         private void materialButton2_Click_1(object sender, EventArgs e)
         {
-
         }
 
         private void contextMenuStrip2_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
+        }
 
+        private void materialButton3_Click(object sender, EventArgs e)
+        {
         }
     }
 }

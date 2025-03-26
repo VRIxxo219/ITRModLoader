@@ -60,11 +60,11 @@
             // 
             alphaBuildLabel.AutoSize = true;
             alphaBuildLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            alphaBuildLabel.Location = new Point(604, 108);
+            alphaBuildLabel.Location = new Point(651, 108);
             alphaBuildLabel.Name = "alphaBuildLabel";
-            alphaBuildLabel.Size = new Size(126, 15);
+            alphaBuildLabel.Size = new Size(78, 15);
             alphaBuildLabel.TabIndex = 4;
-            alphaBuildLabel.Text = "* Early Progress Build *";
+            alphaBuildLabel.Text = " *Alpha 0.1.1*";
             // 
             // modsCheckedListBox
             // 
@@ -182,7 +182,7 @@
             materialButton3.Depth = 0;
             materialButton3.HighEmphasis = true;
             materialButton3.Icon = null;
-            materialButton3.Location = new Point(66, 139);
+            materialButton3.Location = new Point(65, 140);
             materialButton3.Margin = new Padding(4, 6, 4, 6);
             materialButton3.MouseState = MaterialSkin.MouseState.HOVER;
             materialButton3.Name = "materialButton3";
@@ -193,6 +193,7 @@
             materialButton3.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             materialButton3.UseAccentColor = false;
             materialButton3.UseVisualStyleBackColor = true;
+            materialButton3.Click += materialButton3_Click;
             // 
             // materialLabel1
             // 
@@ -257,7 +258,7 @@
             materialButton1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             materialButton1.UseAccentColor = false;
             materialButton1.UseVisualStyleBackColor = true;
-            materialButton1.Click += materialButton1_Click_1;
+            materialButton1.Click += materialButton1_Click1;
             // 
             // NavBar
             // 
@@ -292,7 +293,7 @@
             materialButton2.Depth = 0;
             materialButton2.HighEmphasis = true;
             materialButton2.Icon = null;
-            materialButton2.Location = new Point(76, 187);
+            materialButton2.Location = new Point(74, 187);
             materialButton2.Margin = new Padding(4, 6, 4, 6);
             materialButton2.MouseState = MaterialSkin.MouseState.HOVER;
             materialButton2.Name = "materialButton2";

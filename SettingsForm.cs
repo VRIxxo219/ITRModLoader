@@ -16,12 +16,13 @@ namespace ITRModLoader
 {
     public partial class SettingsForm : MaterialForm
     {
+        private Form1 mainForm; 
         private MaterialSkinManager materialSkinManager2;
 
-        public SettingsForm(Form parent)
+        public SettingsForm(Form1 parent)
         {
             InitializeComponent();
-
+            mainForm = parent;
             //Open Settings Form in middle of Parent Form
             if (parent != null)
             {
@@ -97,6 +98,7 @@ namespace ITRModLoader
                 Properties.Settings.Default.GameFolderPath = settingsGamePathTextBox.Text;
                 Properties.Settings.Default.AppFolderPath = settingsAppPathTextBox.Text;
                 Properties.Settings.Default.Save();
+                mainForm.LoadMods();
             }
             else
             {
