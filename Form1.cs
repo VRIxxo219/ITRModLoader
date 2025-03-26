@@ -1,4 +1,4 @@
-using System.Drawing.Drawing2D;
+﻿using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using System.Windows.Forms;
 using MaterialSkin;
@@ -17,7 +17,6 @@ namespace ITRModLoader
         private Point dragFormPoint;
         private MaterialSkinManager materialSkinManager;
         private ModManager _modManager;
-        private HeaderCheckedListBox modsCheckedListBox;
         public Form1()
         {
             InitializeComponent();
@@ -25,17 +24,13 @@ namespace ITRModLoader
             materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.EnforceBackcolorOnAllComponents = true;
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.Red600, Primary.Red900, Primary.Red100, Accent.DeepOrange700, TextShade.WHITE);
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Red700, Primary.Red900, Primary.Red100, Accent.DeepOrange700, TextShade.WHITE);
             materialSkinManager.AddFormToManage(this);
             string gameFolderPath = Properties.Settings.Default.GameFolderPath;
             _modManager = new ModManager(gameFolderPath);
 
-            modsCheckedListBox = new HeaderCheckedListBox();
-            modsCheckedListBox.ColumnWidth = 50; // Set the width for the priority column
-            modsCheckedListBox.Size = new Size(950, 650); // Adjust size to accommodate the new column
-            modsCheckedListBox.Location = new Point(228, 140); // Position appropriately
-
-            Controls.Add(modsCheckedListBox);
+            modsCheckedListBox.ColumnWidth = 50; // Set the width for the priority column\
+            alphaBuildLabel.Left = (this.ClientSize.Width - alphaBuildLabel.Width) / 2;
         }
 
         // Constants for window resizing
@@ -258,6 +253,11 @@ namespace ITRModLoader
 
         private void materialButton3_Click(object sender, EventArgs e)
         {
+        }
+
+        private void alphaBuildLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

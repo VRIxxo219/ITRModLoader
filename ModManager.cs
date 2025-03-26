@@ -53,7 +53,7 @@ namespace ITRModLoader.Logic
         {
             string pakModsFolderPath = Path.Combine(_gameFolderPath, "IntoTheRadius", "Content", "Paks");
             string deactivatedModsPath = Path.Combine(Path.GetDirectoryName(pakModsFolderPath), "ITR_ModStage");
-
+ 
             if (!Directory.Exists(deactivatedModsPath))
                 Directory.CreateDirectory(deactivatedModsPath);
 

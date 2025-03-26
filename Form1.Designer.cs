@@ -44,6 +44,7 @@
             materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             materialButton2 = new MaterialSkin.Controls.MaterialButton();
             contextMenuStrip2 = new ContextMenuStrip(components);
+            modsCheckedListBox = new HeaderCheckedListBox();
             contextMenuStrip1.SuspendLayout();
             windowBorderPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -54,11 +55,12 @@
             // 
             alphaBuildLabel.AutoSize = true;
             alphaBuildLabel.ForeColor = Color.FromArgb(64, 64, 64);
-            alphaBuildLabel.Location = new Point(651, 108);
+            alphaBuildLabel.Location = new Point(621, 798);
             alphaBuildLabel.Name = "alphaBuildLabel";
             alphaBuildLabel.Size = new Size(78, 15);
             alphaBuildLabel.TabIndex = 4;
             alphaBuildLabel.Text = " *Alpha 0.1.1*";
+            alphaBuildLabel.Click += alphaBuildLabel_Click;
             // 
             // contextMenuStrip1
             // 
@@ -109,7 +111,7 @@
             materialButton3.Depth = 0;
             materialButton3.HighEmphasis = true;
             materialButton3.Icon = null;
-            materialButton3.Location = new Point(65, 140);
+            materialButton3.Location = new Point(67, 121);
             materialButton3.Margin = new Padding(4, 6, 4, 6);
             materialButton3.MouseState = MaterialSkin.MouseState.HOVER;
             materialButton3.Name = "materialButton3";
@@ -129,7 +131,7 @@
             materialLabel1.Depth = 0;
             materialLabel1.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
             materialLabel1.ForeColor = Color.White;
-            materialLabel1.Location = new Point(228, 107);
+            materialLabel1.Location = new Point(232, 99);
             materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabel1.Name = "materialLabel1";
             materialLabel1.Size = new Size(63, 19);
@@ -220,7 +222,7 @@
             materialButton2.Depth = 0;
             materialButton2.HighEmphasis = true;
             materialButton2.Icon = null;
-            materialButton2.Location = new Point(74, 187);
+            materialButton2.Location = new Point(80, 166);
             materialButton2.Margin = new Padding(4, 6, 4, 6);
             materialButton2.MouseState = MaterialSkin.MouseState.HOVER;
             materialButton2.Name = "materialButton2";
@@ -239,6 +241,17 @@
             contextMenuStrip2.Size = new Size(61, 4);
             contextMenuStrip2.Opening += contextMenuStrip2_Opening;
             // 
+            // modsCheckedListBox
+            // 
+            modsCheckedListBox.ColumnWidth = 50;
+            modsCheckedListBox.FormattingEnabled = true;
+            modsCheckedListBox.IntegralHeight = false;
+            modsCheckedListBox.Location = new Point(232, 121);
+            modsCheckedListBox.Name = "modsCheckedListBox";
+            modsCheckedListBox.SelectedColor = Color.FromArgb(40, 90, 255);
+            modsCheckedListBox.Size = new Size(933, 674);
+            modsCheckedListBox.TabIndex = 12;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -246,11 +259,12 @@
             BackColor = Color.Black;
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(1374, 822);
+            Controls.Add(modsCheckedListBox);
             Controls.Add(materialButton2);
+            Controls.Add(alphaBuildLabel);
             Controls.Add(materialLabel1);
             Controls.Add(materialButton3);
             Controls.Add(windowBorderPanel);
-            Controls.Add(alphaBuildLabel);
             Controls.Add(NavBar);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
@@ -283,5 +297,6 @@
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private MaterialSkin.Controls.MaterialButton materialButton2;
         private ContextMenuStrip contextMenuStrip2;
+        private HeaderCheckedListBox modsCheckedListBox;
     }
 }
