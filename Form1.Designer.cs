@@ -31,13 +31,8 @@
         {
             components = new System.ComponentModel.Container();
             alphaBuildLabel = new Label();
-            modsCheckedListBox = new CheckedListBox();
             contextMenuStrip1 = new ContextMenuStrip(components);
             renameModsToolStripMenuItem = new ToolStripMenuItem();
-            panel1 = new Panel();
-            materialLabel5 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel4 = new MaterialSkin.Controls.MaterialLabel();
-            fileNameLabel = new MaterialSkin.Controls.MaterialLabel();
             windowBorderPanel = new Panel();
             applicationCloseButton = new Button();
             materialButton3 = new MaterialSkin.Controls.MaterialButton();
@@ -50,7 +45,6 @@
             materialButton2 = new MaterialSkin.Controls.MaterialButton();
             contextMenuStrip2 = new ContextMenuStrip(components);
             contextMenuStrip1.SuspendLayout();
-            panel1.SuspendLayout();
             windowBorderPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             NavBar.SuspendLayout();
@@ -66,21 +60,6 @@
             alphaBuildLabel.TabIndex = 4;
             alphaBuildLabel.Text = " *Alpha 0.1.1*";
             // 
-            // modsCheckedListBox
-            // 
-            modsCheckedListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            modsCheckedListBox.BackColor = Color.FromArgb(33, 33, 33);
-            modsCheckedListBox.ContextMenuStrip = contextMenuStrip1;
-            modsCheckedListBox.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            modsCheckedListBox.ForeColor = Color.White;
-            modsCheckedListBox.FormattingEnabled = true;
-            modsCheckedListBox.Items.AddRange(new object[] { "Chucks Custom Items", "R3 Custom Weapons ", "Common DP", "M1911 TT33 Replacer" });
-            modsCheckedListBox.Location = new Point(228, 139);
-            modsCheckedListBox.Name = "modsCheckedListBox";
-            modsCheckedListBox.Size = new Size(951, 444);
-            modsCheckedListBox.TabIndex = 6;
-            modsCheckedListBox.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
-            // 
             // contextMenuStrip1
             // 
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { renameModsToolStripMenuItem });
@@ -94,58 +73,6 @@
             renameModsToolStripMenuItem.Size = new Size(145, 22);
             renameModsToolStripMenuItem.Text = "Rename Mod";
             renameModsToolStripMenuItem.Click += renameModsToolStripMenuItem_Click;
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.Transparent;
-            panel1.Controls.Add(materialLabel5);
-            panel1.Controls.Add(materialLabel4);
-            panel1.Controls.Add(fileNameLabel);
-            panel1.Location = new Point(228, 589);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(951, 177);
-            panel1.TabIndex = 7;
-            panel1.Paint += panel1_Paint;
-            // 
-            // materialLabel5
-            // 
-            materialLabel5.AutoSize = true;
-            materialLabel5.Depth = 0;
-            materialLabel5.Enabled = false;
-            materialLabel5.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            materialLabel5.ForeColor = SystemColors.ActiveCaption;
-            materialLabel5.Location = new Point(7, 123);
-            materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel5.Name = "materialLabel5";
-            materialLabel5.Size = new Size(96, 19);
-            materialLabel5.TabIndex = 2;
-            materialLabel5.Text = "Date Created:";
-            // 
-            // materialLabel4
-            // 
-            materialLabel4.AutoSize = true;
-            materialLabel4.Depth = 0;
-            materialLabel4.Enabled = false;
-            materialLabel4.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            materialLabel4.Location = new Point(7, 75);
-            materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel4.Name = "materialLabel4";
-            materialLabel4.Size = new Size(64, 19);
-            materialLabel4.TabIndex = 1;
-            materialLabel4.Text = "File Size:";
-            // 
-            // fileNameLabel
-            // 
-            fileNameLabel.AutoSize = true;
-            fileNameLabel.Depth = 0;
-            fileNameLabel.Enabled = false;
-            fileNameLabel.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            fileNameLabel.Location = new Point(7, 30);
-            fileNameLabel.MouseState = MaterialSkin.MouseState.HOVER;
-            fileNameLabel.Name = "fileNameLabel";
-            fileNameLabel.Size = new Size(112, 19);
-            fileNameLabel.TabIndex = 0;
-            fileNameLabel.Text = "Mod File Name:";
             // 
             // windowBorderPanel
             // 
@@ -323,18 +250,14 @@
             Controls.Add(materialLabel1);
             Controls.Add(materialButton3);
             Controls.Add(windowBorderPanel);
-            Controls.Add(panel1);
             Controls.Add(alphaBuildLabel);
             Controls.Add(NavBar);
-            Controls.Add(modsCheckedListBox);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "      ";
             Load += Form1_Load;
             MouseClick += Form1_MouseClick;
             contextMenuStrip1.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             windowBorderPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             NavBar.ResumeLayout(false);
@@ -349,10 +272,8 @@
         private Label label1;
         private Panel NavBar;
         private Label alphaBuildLabel;
-        private CheckedListBox modsCheckedListBox;
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem renameModsToolStripMenuItem;
-        private Panel panel1;
         private Panel windowBorderPanel;
         private Button applicationCloseButton;
         private MaterialSkin.Controls.MaterialButton materialButton1;
@@ -360,9 +281,6 @@
         private MaterialSkin.Controls.MaterialButton materialButton3;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
-        private MaterialSkin.Controls.MaterialLabel materialLabel5;
-        private MaterialSkin.Controls.MaterialLabel materialLabel4;
-        private MaterialSkin.Controls.MaterialLabel fileNameLabel;
         private MaterialSkin.Controls.MaterialButton materialButton2;
         private ContextMenuStrip contextMenuStrip2;
     }

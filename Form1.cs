@@ -17,7 +17,7 @@ namespace ITRModLoader
         private Point dragFormPoint;
         private MaterialSkinManager materialSkinManager;
         private ModManager _modManager;
-
+        private HeaderCheckedListBox modsCheckedListBox;
         public Form1()
         {
             InitializeComponent();
@@ -26,10 +26,16 @@ namespace ITRModLoader
             materialSkinManager.EnforceBackcolorOnAllComponents = true;
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Red600, Primary.Red900, Primary.Red100, Accent.DeepOrange700, TextShade.WHITE);
-
             materialSkinManager.AddFormToManage(this);
             string gameFolderPath = Properties.Settings.Default.GameFolderPath;
             _modManager = new ModManager(gameFolderPath);
+
+            modsCheckedListBox = new HeaderCheckedListBox();
+            modsCheckedListBox.ColumnWidth = 50; // Set the width for the priority column
+            modsCheckedListBox.Size = new Size(950, 650); // Adjust size to accommodate the new column
+            modsCheckedListBox.Location = new Point(228, 140); // Position appropriately
+
+            Controls.Add(modsCheckedListBox);
         }
 
         // Constants for window resizing
@@ -79,30 +85,38 @@ namespace ITRModLoader
         public void LoadMods()
         {
             List<string> excludedFiles = new List<string>
-            {
-                "pakchunk0optional-WindowsNoEditor.pak",
-                "pakchunk0-WindowsNoEditor.pak",
-                "pakchunk1optional-WindowsNoEditor.pak",
-                "pakchunk1-WindowsNoEditor.pak"
-            };
+    {
+        "pakchunk0optional-WindowsNoEditor.pak",
+        "pakchunk0-WindowsNoEditor.pak",
+        "pakchunk1optional-WindowsNoEditor.pak",
+        "pakchunk1-WindowsNoEditor.pak"
+    };
             string mainGamePath = Properties.Settings.Default.GameFolderPath;
             string pakModsFolderPath = Path.Combine(mainGamePath, "IntoTheRadius", "Content", "Paks");
             string deactivatedModsPath = Path.Combine(Path.GetDirectoryName(pakModsFolderPath), "ITR_ModStage");
 
             modsCheckedListBox.Items.Clear();
 
+            // Add headers
+            modsCheckedListBox.AddHeader("Active Mods");
+            //DEBUG Fake Priority
             if (Directory.Exists(pakModsFolderPath))
             {
+                int debugPriority = 0;
                 string[] activeMods = Directory.GetFiles(pakModsFolderPath, "*.pak");
                 foreach (string mod in activeMods)
                 {
                     string modName = Path.GetFileName(mod);
                     if (!excludedFiles.Contains(modName, StringComparer.OrdinalIgnoreCase))
                     {
-                        modsCheckedListBox.Items.Add(modName, true);
+                        // Create ModItem with default priority (you can adjust this logic)
+                        int priority = debugPriority += 1;
+                        modsCheckedListBox.AddModItem(new ModItem { Name = modName, Priority = priority, IsSelected = true });
                     }
                 }
             }
+
+            modsCheckedListBox.AddHeader("Inactive Mods");
 
             if (Directory.Exists(deactivatedModsPath))
             {
@@ -137,19 +151,14 @@ namespace ITRModLoader
                     }
                     else
                     {
-                        modsCheckedListBox.Items.Add(modName, false);
+                        // Link priority with ModLoader.config.json || TODO: Create Priority handler
+                        int priority = 0;
+                        modsCheckedListBox.AddModItem(new ModItem { Name = modName, Priority = priority, IsSelected = false });
                     }
                 }
             }
         }
 
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (modsCheckedListBox.SelectedItem != null)
-            {
-                fileNameLabel.Text = $"Mod File Name: {modsCheckedListBox.SelectedItem}";
-            }
-        }
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -163,14 +172,14 @@ namespace ITRModLoader
         {
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-            ControlPaint.DrawBorder(e.Graphics, panel1.ClientRectangle, Color.FromArgb(227, 30, 40), ButtonBorderStyle.Solid);
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
-            var selectedMods = modsCheckedListBox.CheckedItems.Cast<string>().ToList();
+            // Cast to ModItem instead of string
+            var selectedModItems = modsCheckedListBox.CheckedItems.Cast<ModItem>().ToList();
+
+            // Extract the mod names from the ModItem objects
+            var selectedMods = selectedModItems.Select(modItem => modItem.Name).ToList();
+
             _modManager.MoveUnselectedMods(selectedMods.ToArray());
             Application.Exit();
         }
@@ -212,7 +221,8 @@ namespace ITRModLoader
                 return;
             }
 
-            var selectedMods = modsCheckedListBox.CheckedItems.Cast<string>().ToList();
+            var selectedModItems = modsCheckedListBox.GetCheckedModItems();
+            var selectedMods = selectedModItems.Select(modItem => modItem.Name).ToList();
             _modManager.MoveUnselectedMods(selectedMods.ToArray());
 
             string gameExePath = PathManager.GetGameExePath(gameFolderPath);
