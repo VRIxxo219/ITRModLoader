@@ -8,16 +8,21 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace ITRModLoader
 {
-    public partial class SettingsForm : Form
+    public partial class SettingsForm : MaterialForm
     {
-        public SettingsForm(Form parent)
+        private Form1 mainForm; 
+        private MaterialSkinManager materialSkinManager2;
+
+        public SettingsForm(Form1 parent)
         {
             InitializeComponent();
-
+            mainForm = parent;
             //Open Settings Form in middle of Parent Form
             if (parent != null)
             {
@@ -30,14 +35,14 @@ namespace ITRModLoader
             //Load Data from Settings
             settingsGamePathTextBox.Text = Properties.Settings.Default.GameFolderPath;
             settingsAppPathTextBox.Text = Properties.Settings.Default.AppFolderPath;
+
+            materialSkinManager2 = MaterialSkinManager.Instance;
+            materialSkinManager2.EnforceBackcolorOnAllComponents = false;
+
+            materialSkinManager2.AddFormToManage(this);
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void gamePathTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -47,7 +52,16 @@ namespace ITRModLoader
 
         }
 
-        private void gamePathFindButton_Click(object sender, EventArgs e)
+        private void gamePathLabel_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void settingsGamePathTextBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialButton1_Click(object sender, EventArgs e)
         {
             //TODO: Create Folder Handler
             FolderBrowserDialog fbd = new FolderBrowserDialog();
@@ -62,11 +76,7 @@ namespace ITRModLoader
             }
         }
 
-        private void gamePathLabel_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void appPathFindButton_Click(object sender, EventArgs e)
+        private void appPathFindButton_Click_1(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.InitialDirectory = "c:\\";
@@ -78,7 +88,7 @@ namespace ITRModLoader
             }
         }
 
-        private void saveDataButton_Click(object sender, EventArgs e)
+        private void materialButton3_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Are you sure you want to continue?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -88,6 +98,7 @@ namespace ITRModLoader
                 Properties.Settings.Default.GameFolderPath = settingsGamePathTextBox.Text;
                 Properties.Settings.Default.AppFolderPath = settingsAppPathTextBox.Text;
                 Properties.Settings.Default.Save();
+                mainForm.LoadMods();
             }
             else
             {
@@ -97,9 +108,9 @@ namespace ITRModLoader
             }
         }
 
-        private void appPathTextBox_TextChanged(object sender, EventArgs e)
+        private void materialButton4_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }

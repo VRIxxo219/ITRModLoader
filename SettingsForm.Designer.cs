@@ -28,38 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
-            label1 = new Label();
             gamePathLabel = new Label();
             label2 = new Label();
-            settingsGamePathTextBox = new TextBox();
-            settingsAppPathTextBox = new TextBox();
-            gamePathFindButton = new Button();
-            appPathFindButton = new Button();
-            button4 = new Button();
-            savveDataButton = new Button();
-            panel1.SuspendLayout();
+            materialFindButton = new MaterialSkin.Controls.MaterialButton();
+            appPathFindButton = new MaterialSkin.Controls.MaterialButton();
+            settingsGamePathTextBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
+            settingsAppPathTextBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
+            materialButton3 = new MaterialSkin.Controls.MaterialButton();
+            materialButton4 = new MaterialSkin.Controls.MaterialButton();
+            materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             SuspendLayout();
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.Black;
-            panel1.Controls.Add(label1);
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(802, 56);
-            panel1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(12, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(134, 37);
-            label1.TabIndex = 0;
-            label1.Text = "SETTINGS";
             // 
             // gamePathLabel
             // 
@@ -76,112 +54,223 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(12, 156);
+            label2.Location = new Point(12, 208);
             label2.Name = "label2";
             label2.Size = new Size(131, 21);
             label2.TabIndex = 2;
             label2.Text = "Application Data";
             label2.Click += label2_Click;
             // 
-            // settingsGamePathTextBox
+            // materialFindButton
             // 
-            settingsGamePathTextBox.Location = new Point(12, 94);
-            settingsGamePathTextBox.Name = "settingsGamePathTextBox";
-            settingsGamePathTextBox.Size = new Size(651, 23);
-            settingsGamePathTextBox.TabIndex = 3;
-            settingsGamePathTextBox.TextChanged += gamePathTextBox_TextChanged;
-            // 
-            // settingsAppPathTextBox
-            // 
-            settingsAppPathTextBox.Location = new Point(12, 180);
-            settingsAppPathTextBox.Name = "settingsAppPathTextBox";
-            settingsAppPathTextBox.Size = new Size(651, 23);
-            settingsAppPathTextBox.TabIndex = 4;
-            settingsAppPathTextBox.TextChanged += appPathTextBox_TextChanged;
-            // 
-            // gamePathFindButton
-            // 
-            gamePathFindButton.Location = new Point(12, 123);
-            gamePathFindButton.Name = "gamePathFindButton";
-            gamePathFindButton.Size = new Size(95, 25);
-            gamePathFindButton.TabIndex = 5;
-            gamePathFindButton.Text = "Find";
-            gamePathFindButton.UseVisualStyleBackColor = true;
-            gamePathFindButton.Click += gamePathFindButton_Click;
+            materialFindButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialFindButton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialFindButton.Depth = 0;
+            materialFindButton.HighEmphasis = true;
+            materialFindButton.Icon = null;
+            materialFindButton.Location = new Point(12, 151);
+            materialFindButton.Margin = new Padding(4, 6, 4, 6);
+            materialFindButton.MouseState = MaterialSkin.MouseState.HOVER;
+            materialFindButton.Name = "materialFindButton";
+            materialFindButton.NoAccentTextColor = Color.Empty;
+            materialFindButton.Size = new Size(64, 36);
+            materialFindButton.TabIndex = 10;
+            materialFindButton.Text = "Find";
+            materialFindButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialFindButton.UseAccentColor = false;
+            materialFindButton.UseVisualStyleBackColor = true;
+            materialFindButton.Click += materialButton1_Click;
             // 
             // appPathFindButton
             // 
-            appPathFindButton.Location = new Point(12, 209);
+            appPathFindButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            appPathFindButton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            appPathFindButton.Depth = 0;
+            appPathFindButton.Enabled = false;
+            appPathFindButton.HighEmphasis = true;
+            appPathFindButton.Icon = null;
+            appPathFindButton.Location = new Point(12, 289);
+            appPathFindButton.Margin = new Padding(4, 6, 4, 6);
+            appPathFindButton.MouseState = MaterialSkin.MouseState.HOVER;
             appPathFindButton.Name = "appPathFindButton";
-            appPathFindButton.Size = new Size(95, 25);
-            appPathFindButton.TabIndex = 6;
+            appPathFindButton.NoAccentTextColor = Color.Empty;
+            appPathFindButton.Size = new Size(64, 36);
+            appPathFindButton.TabIndex = 11;
             appPathFindButton.Text = "Find";
+            appPathFindButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            appPathFindButton.UseAccentColor = false;
             appPathFindButton.UseVisualStyleBackColor = true;
-            appPathFindButton.Click += appPathFindButton_Click;
+            appPathFindButton.Click += appPathFindButton_Click_1;
             // 
-            // button4
+            // settingsGamePathTextBox
             // 
-            button4.BackColor = Color.White;
-            button4.FlatAppearance.BorderColor = Color.Black;
-            button4.FlatAppearance.BorderSize = 2;
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.ForeColor = SystemColors.ControlText;
-            button4.Location = new Point(571, 251);
-            button4.Name = "button4";
-            button4.Size = new Size(92, 28);
-            button4.TabIndex = 8;
-            button4.Text = "Cancel";
-            button4.UseVisualStyleBackColor = false;
+            settingsGamePathTextBox.AllowPromptAsInput = true;
+            settingsGamePathTextBox.AnimateReadOnly = false;
+            settingsGamePathTextBox.AsciiOnly = false;
+            settingsGamePathTextBox.BackgroundImageLayout = ImageLayout.None;
+            settingsGamePathTextBox.BeepOnError = false;
+            settingsGamePathTextBox.CutCopyMaskFormat = MaskFormat.IncludeLiterals;
+            settingsGamePathTextBox.Depth = 0;
+            settingsGamePathTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            settingsGamePathTextBox.HidePromptOnLeave = false;
+            settingsGamePathTextBox.HideSelection = true;
+            settingsGamePathTextBox.InsertKeyMode = InsertKeyMode.Default;
+            settingsGamePathTextBox.LeadingIcon = null;
+            settingsGamePathTextBox.Location = new Point(12, 94);
+            settingsGamePathTextBox.Mask = "";
+            settingsGamePathTextBox.MaxLength = 32767;
+            settingsGamePathTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            settingsGamePathTextBox.Name = "settingsGamePathTextBox";
+            settingsGamePathTextBox.PasswordChar = '\0';
+            settingsGamePathTextBox.PrefixSuffixText = null;
+            settingsGamePathTextBox.PromptChar = '_';
+            settingsGamePathTextBox.ReadOnly = false;
+            settingsGamePathTextBox.RejectInputOnFirstFailure = false;
+            settingsGamePathTextBox.ResetOnPrompt = true;
+            settingsGamePathTextBox.ResetOnSpace = true;
+            settingsGamePathTextBox.RightToLeft = RightToLeft.No;
+            settingsGamePathTextBox.SelectedText = "";
+            settingsGamePathTextBox.SelectionLength = 0;
+            settingsGamePathTextBox.SelectionStart = 0;
+            settingsGamePathTextBox.ShortcutsEnabled = true;
+            settingsGamePathTextBox.Size = new Size(545, 48);
+            settingsGamePathTextBox.SkipLiterals = true;
+            settingsGamePathTextBox.TabIndex = 12;
+            settingsGamePathTextBox.TabStop = false;
+            settingsGamePathTextBox.Text = "materialMaskedTextBox1";
+            settingsGamePathTextBox.TextAlign = HorizontalAlignment.Left;
+            settingsGamePathTextBox.TextMaskFormat = MaskFormat.IncludeLiterals;
+            settingsGamePathTextBox.TrailingIcon = null;
+            settingsGamePathTextBox.UseSystemPasswordChar = false;
+            settingsGamePathTextBox.ValidatingType = null;
+            settingsGamePathTextBox.Click += settingsGamePathTextBox_Click;
             // 
-            // savveDataButton
+            // settingsAppPathTextBox
             // 
-            savveDataButton.BackColor = Color.White;
-            savveDataButton.FlatAppearance.BorderColor = Color.Red;
-            savveDataButton.FlatAppearance.BorderSize = 2;
-            savveDataButton.FlatStyle = FlatStyle.Flat;
-            savveDataButton.Location = new Point(460, 251);
-            savveDataButton.Name = "savveDataButton";
-            savveDataButton.Size = new Size(92, 28);
-            savveDataButton.TabIndex = 9;
-            savveDataButton.Text = "Save";
-            savveDataButton.UseVisualStyleBackColor = false;
-            savveDataButton.Click += saveDataButton_Click;
+            settingsAppPathTextBox.AllowPromptAsInput = true;
+            settingsAppPathTextBox.AnimateReadOnly = false;
+            settingsAppPathTextBox.AsciiOnly = false;
+            settingsAppPathTextBox.BackgroundImageLayout = ImageLayout.None;
+            settingsAppPathTextBox.BeepOnError = false;
+            settingsAppPathTextBox.CutCopyMaskFormat = MaskFormat.IncludeLiterals;
+            settingsAppPathTextBox.Depth = 0;
+            settingsAppPathTextBox.Enabled = false;
+            settingsAppPathTextBox.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            settingsAppPathTextBox.HidePromptOnLeave = false;
+            settingsAppPathTextBox.HideSelection = true;
+            settingsAppPathTextBox.InsertKeyMode = InsertKeyMode.Default;
+            settingsAppPathTextBox.LeadingIcon = null;
+            settingsAppPathTextBox.Location = new Point(12, 232);
+            settingsAppPathTextBox.Mask = "";
+            settingsAppPathTextBox.MaxLength = 32767;
+            settingsAppPathTextBox.MouseState = MaterialSkin.MouseState.OUT;
+            settingsAppPathTextBox.Name = "settingsAppPathTextBox";
+            settingsAppPathTextBox.PasswordChar = '\0';
+            settingsAppPathTextBox.PrefixSuffixText = null;
+            settingsAppPathTextBox.PromptChar = '_';
+            settingsAppPathTextBox.ReadOnly = false;
+            settingsAppPathTextBox.RejectInputOnFirstFailure = false;
+            settingsAppPathTextBox.ResetOnPrompt = true;
+            settingsAppPathTextBox.ResetOnSpace = true;
+            settingsAppPathTextBox.RightToLeft = RightToLeft.No;
+            settingsAppPathTextBox.SelectedText = "";
+            settingsAppPathTextBox.SelectionLength = 0;
+            settingsAppPathTextBox.SelectionStart = 0;
+            settingsAppPathTextBox.ShortcutsEnabled = true;
+            settingsAppPathTextBox.Size = new Size(545, 48);
+            settingsAppPathTextBox.SkipLiterals = true;
+            settingsAppPathTextBox.TabIndex = 13;
+            settingsAppPathTextBox.TabStop = false;
+            settingsAppPathTextBox.Text = "materialMaskedTextBox2";
+            settingsAppPathTextBox.TextAlign = HorizontalAlignment.Left;
+            settingsAppPathTextBox.TextMaskFormat = MaskFormat.IncludeLiterals;
+            settingsAppPathTextBox.TrailingIcon = null;
+            settingsAppPathTextBox.UseSystemPasswordChar = false;
+            settingsAppPathTextBox.ValidatingType = null;
+            // 
+            // materialButton3
+            // 
+            materialButton3.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButton3.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButton3.Depth = 0;
+            materialButton3.HighEmphasis = true;
+            materialButton3.Icon = null;
+            materialButton3.Location = new Point(557, 352);
+            materialButton3.Margin = new Padding(4, 6, 4, 6);
+            materialButton3.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButton3.Name = "materialButton3";
+            materialButton3.NoAccentTextColor = Color.Empty;
+            materialButton3.Size = new Size(64, 36);
+            materialButton3.TabIndex = 14;
+            materialButton3.Text = "save";
+            materialButton3.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButton3.UseAccentColor = false;
+            materialButton3.UseVisualStyleBackColor = true;
+            materialButton3.Click += materialButton3_Click;
+            // 
+            // materialButton4
+            // 
+            materialButton4.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButton4.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButton4.Depth = 0;
+            materialButton4.HighEmphasis = true;
+            materialButton4.Icon = null;
+            materialButton4.Location = new Point(642, 352);
+            materialButton4.Margin = new Padding(4, 6, 4, 6);
+            materialButton4.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButton4.Name = "materialButton4";
+            materialButton4.NoAccentTextColor = Color.Empty;
+            materialButton4.Size = new Size(77, 36);
+            materialButton4.TabIndex = 15;
+            materialButton4.Text = "cancel";
+            materialButton4.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButton4.UseAccentColor = false;
+            materialButton4.UseVisualStyleBackColor = true;
+            materialButton4.Click += materialButton4_Click;
+            // 
+            // materialLabel1
+            // 
+            materialLabel1.AutoSize = true;
+            materialLabel1.Depth = 0;
+            materialLabel1.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabel1.Location = new Point(158, 210);
+            materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel1.Name = "materialLabel1";
+            materialLabel1.Size = new Size(65, 19);
+            materialLabel1.TabIndex = 16;
+            materialLabel1.Text = "Not Used";
             // 
             // SettingsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(224, 224, 224);
-            ClientSize = new Size(679, 291);
-            Controls.Add(savveDataButton);
-            Controls.Add(button4);
-            Controls.Add(appPathFindButton);
-            Controls.Add(gamePathFindButton);
+            ClientSize = new Size(741, 397);
+            Controls.Add(materialLabel1);
+            Controls.Add(materialButton4);
+            Controls.Add(materialButton3);
             Controls.Add(settingsAppPathTextBox);
             Controls.Add(settingsGamePathTextBox);
+            Controls.Add(appPathFindButton);
+            Controls.Add(materialFindButton);
             Controls.Add(label2);
             Controls.Add(gamePathLabel);
-            Controls.Add(panel1);
             Name = "SettingsForm";
-            Text = "Form2";
+            Text = "SETTINGS";
             Load += SettingsForm_Load;
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Panel panel1;
-        private Label label1;
         private Label gamePathLabel;
         private Label label2;
-        private TextBox settingsGamePathTextBox;
-        private TextBox settingsAppPathTextBox;
-        private Button gamePathFindButton;
-        private Button appPathFindButton;
-        private Button button4;
-        private Button savveDataButton;
+        private MaterialSkin.Controls.MaterialButton materialFindButton;
+        private MaterialSkin.Controls.MaterialButton appPathFindButton;
+        private MaterialSkin.Controls.MaterialMaskedTextBox settingsGamePathTextBox;
+        private MaterialSkin.Controls.MaterialMaskedTextBox settingsAppPathTextBox;
+        private MaterialSkin.Controls.MaterialButton materialButton3;
+        private MaterialSkin.Controls.MaterialButton materialButton4;
+        private MaterialSkin.Controls.MaterialLabel materialLabel1;
     }
 }
